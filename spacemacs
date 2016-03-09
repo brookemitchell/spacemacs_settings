@@ -26,7 +26,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     spacemacs-helm
+     spacemacs-ivy
      (auto-completion :variables
                       auto-completion-complete-with-key-sequence "jk"
                       )
@@ -38,7 +38,6 @@ values."
      emacs-lisp
      erlang
      eyebrowse
-     fasd
      ibuffer
      (git :variables
           auto-completion-tab-key-behavior 'complete
@@ -47,7 +46,7 @@ values."
           git-enable-github-support t)
      javascript
      markdown
-     org
+     php
      python
      react
      ruby
@@ -72,7 +71,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(flycheck-pos-tip skewer-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -126,7 +125,6 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-
                          niflheim
                          sanityinc-tomorrow-day
                          smyx
@@ -141,15 +139,17 @@ values."
                          solarized-dark
                          monokai
                          zenburn)
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 9
+   dotspacemacs-default-font '("Ubuntu Mono"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -205,7 +205,7 @@ values."
    dotspacemacs-helm-position 'bottom
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-transient-state t
+   dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
@@ -260,10 +260,10 @@ values."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters "current"
+   dotspacemacs-highlight-delimiters 'current
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -288,7 +288,6 @@ in `dotspacemacs/user-config'."
 
   ;; (setq flycheck-pos-tip nil)
   (setq evil-move-cursor-back nil)
-  (setq powerline-default-separator 'box)
   (setq-default evil-escape-key-sequence "df")
 
   ;; (setq-default evil-want-C-i-jump t)
@@ -301,7 +300,6 @@ in `dotspacemacs/user-config'."
 
   ;; ++++++File Settings+++++++
   (setq make-backup-files nil
-        auto-save-default nil
         create-lockfiles nil)
   )
 
@@ -310,9 +308,9 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
+  (setq powerline-default-separator 'box)
   (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
   (global-company-mode)
-
 
   (bind-keys :map company-active-map
              ("<tab>" . company-complete)
@@ -324,3 +322,19 @@ layers configuration. You are free to put any user code."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
+ '(menu-bar-mode nil)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
